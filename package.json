@@ -2,7 +2,11 @@
   "name": "pnpm-lockfile-migrate-repository",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "pre-publish": "nx lint pnpm-lockfile-migrate && nx test pnpm-lockfile-migrate && nx build pnpm-lockfile-migrate",
+    "release": "pnpm run pre-publish &&nx release",
+    "release:dry-run": "pnpm run pre-publish && nx release --dry-run"
+  },
   "private": true,
   "devDependencies": {
     "@bayernlabo/sepo-core": "^1.9.8",

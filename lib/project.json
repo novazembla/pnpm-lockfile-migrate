@@ -32,8 +32,8 @@
         ]
       }
     },
+   
     "nx-release-publish": {
-      "dependsOn": ["lint", "test", "build-lib"],
       "options": {
         "packageRoot": "dist/{projectRoot}"
       }

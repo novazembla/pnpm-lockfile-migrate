@@ -73,14 +73,15 @@ Run `nx build pnpm-lockfile-migrate` to build the library.
 Run `nx test pnpm-lockfile-migrate` to execute the unit tests via [Vitest](https://vitest.dev/).
 
 # Publishing 
-First make sure that you configure the correct version in `lib/package.json`. Then 
-Run 
-```
-nx nx-release-publish pnpm-lockfile-migrate [VERSION] --dry-run
-``` 
+First make sure that you configure the correct version in `lib/package.json`. Then test the release by running:
 
-to trail run the publication of the package. And 
 ```
-nx nx-release-publish pnpm-lockfile-migrate [VERSION]
+pnpm run release:dry-run
+``` 
+This will check the version, generate a changelog entry based on the conventional commits, tests if the version has not been already tagged. 
+
+If all changes look good you can trigger the release with: 
+
 ```
- to publish the package.
+pnpm run release
+```
