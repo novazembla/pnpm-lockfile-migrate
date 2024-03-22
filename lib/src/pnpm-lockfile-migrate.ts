@@ -186,20 +186,21 @@ export async function updateRegistryInformation(
           }
         });
 
-        if (result?.tarball && result?.integrity) {
-          if (options?.debug) {
-            out.push('UPDATE WITH:');
-            out.push(
-              JSON.stringify(
-                {
-                  integrity: result?.integrity,
-                  tarball: result?.tarball,
-                },
-                undefined,
-                2
-              )
-            );
-          }
+        if (options?.debug) {
+          out.push('PNPM VIEW RESULT:');
+          out.push(
+            JSON.stringify(
+              {
+                integrity: result?.integrity,
+                tarball: result?.tarball,
+              },
+              undefined,
+              2
+            )
+          );
+        }
+
+        if (result?.tarball || result?.integrity) {
           if (lockFile['packages']?.[pkgInfo.key].resolution) {
             let updated = false;
 
@@ -242,7 +243,7 @@ export async function updateRegistryInformation(
             }
           }
         } else {
-          throw Error(`could not find package in private repository`);
+          out.join('Skipping package as private repository does not make use of tarball URL or integrity checksum')
         }
         if (options?.log) {
           console.log(out.join('\n'));
