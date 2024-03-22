@@ -1,7 +1,7 @@
 {
   "name": "@novazembla/pnpm-lockfile-migrate",
-  "version": "0.0.3",
-  "description": "Update private npm registry tarball urls and integrity checksums in a project's `pnpm-lock.yaml` file.",
+  "version": "0.0.6",
+  "description": "Update in a project's `pnpm-lock.yaml` file private npm registry tarball urls and integrity checksums.",
   "license": "MIT",
   "author": {
     "name": "Vincent Van Uffelen",
