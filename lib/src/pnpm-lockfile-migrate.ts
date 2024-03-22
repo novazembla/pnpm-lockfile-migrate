@@ -34,6 +34,12 @@ function isResolutionWithTarball(
   return (test as TarballResolution).tarball !== undefined;
 }
 
+function isResolutionWithType(
+  test: LockfileResolution
+): test is TarballResolution {
+  return (test as TarballResolution).type !== undefined;
+}
+
 /**
  * This function updates a pnpm-lock.yaml file with the package information from the registry.
  *
@@ -193,6 +199,7 @@ export async function updateRegistryInformation(
               {
                 integrity: result?.integrity,
                 tarball: result?.tarball,
+                type: result?.type,
               },
               undefined,
               2
@@ -200,51 +207,81 @@ export async function updateRegistryInformation(
           );
         }
 
-        if (result?.tarball || result?.integrity) {
-          if (lockFile['packages']?.[pkgInfo.key].resolution) {
-            let updated = false;
+        if (lockFile['packages']?.[pkgInfo.key].resolution) {
+          let updated = false;
 
-            if (
-              isResolutionWithIntegrity(
-                lockFile['packages'][pkgInfo.key].resolution
-              ) &&
-              (
-                lockFile['packages'][pkgInfo.key]
-                  .resolution as TarballResolution
-              ).integrity !== result?.integrity
-            ) {
+          if (
+            isResolutionWithIntegrity(
+              lockFile['packages'][pkgInfo.key].resolution
+            ) &&
+            (lockFile['packages'][pkgInfo.key].resolution as TarballResolution)
+              .integrity !== result?.integrity
+          ) {
+            if (result?.integrity) {
               (
                 lockFile['packages'][pkgInfo.key]
                   .resolution as TarballResolution
               ).integrity = result?.integrity;
-              updated = true;
-            }
-
-            if (
-              isResolutionWithTarball(
-                lockFile['packages'][pkgInfo.key].resolution
-              ) &&
-              (
+            } else {
+              delete (
                 lockFile['packages'][pkgInfo.key]
                   .resolution as TarballResolution
-              ).tarball !== result?.tarball
-            ) {
+              ).integrity;
+            }
+            updated = true;
+          }
+
+          if (
+            isResolutionWithTarball(
+              lockFile['packages'][pkgInfo.key].resolution
+            ) &&
+            (lockFile['packages'][pkgInfo.key].resolution as TarballResolution)
+              .tarball !== result?.tarball
+          ) {
+            if (result?.tarball) {
               (
                 lockFile['packages'][pkgInfo.key]
                   .resolution as TarballResolution
               ).tarball = result?.tarball;
-              updated = true;
-            }
-
-            if (updated) {
-              count += 1;
             } else {
-              out.join('No changes detected');
+              delete (
+                lockFile['packages'][pkgInfo.key]
+                  .resolution as Partial<TarballResolution>
+              ).tarball;
             }
+            updated = true;
           }
-        } else {
-          out.join('Skipping package as private repository does not make use of tarball URL or integrity checksum')
+
+          if (
+            isResolutionWithType(
+              lockFile['packages'][pkgInfo.key].resolution
+            ) &&
+            (lockFile['packages'][pkgInfo.key].resolution as TarballResolution)
+              .type !== result?.type &&
+            // we don't want to mess with around git or directory resolutions
+            !['directory', 'git'].includes(result?.resolution)
+          ) {
+            if (result?.type) {
+              (
+                lockFile['packages'][pkgInfo.key]
+                  .resolution as TarballResolution
+              ).type = result?.type;
+            } else {
+              delete (
+                lockFile['packages'][pkgInfo.key]
+                  .resolution as Partial<TarballResolution>
+              ).type;
+            }
+            updated = true;
+          }
+
+          if (updated) {
+            count += 1;
+          } else {
+            out.join('No changes detected');
+          }
         }
+
         if (options?.log) {
           console.log(out.join('\n'));
         }
@@ -273,7 +310,7 @@ export async function updateRegistryInformation(
         );
       }
     } else {
-      console.log("\n\npnpm-lock.yaml has not been changed.");
+      console.log('\n\npnpm-lock.yaml has not been changed.');
       console.log(
         '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
       );
