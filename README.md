@@ -68,7 +68,11 @@ We use [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) to
 
 Run `nx build pnpm-lockfile-migrate` to build the library.
 
-# Running unit tests
+# Linting
+
+Run `nx lint pnpm-lockfile-migrate` to lint the code.
+
+# Testing
 
 Run `nx test pnpm-lockfile-migrate` to execute the unit tests via [Vitest](https://vitest.dev/).
 
