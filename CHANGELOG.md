@@ -1,3 +1,18 @@
+## 0.0.8 (2024-03-22)
+
+
+### 🚀 Features
+
+- update pnpm script ([2efa70b](https://github.com/novazembla/pnpm-lockfile-migrate/commit/2efa70b))
+
+### 🩹 Fixes
+
+- do allow repository respones that make use of tarball URL or integrity checksum ([c4b2804](https://github.com/novazembla/pnpm-lockfile-migrate/commit/c4b2804))
+
+### ❤️  Thank You
+
+- Vincent Van Uffelen
+
 ## 0.0.7 (2024-03-22)
 
 
