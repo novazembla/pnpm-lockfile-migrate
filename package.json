@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "pre-publish": "nx lint pnpm-lockfile-migrate && nx test pnpm-lockfile-migrate && nx build pnpm-lockfile-migrate",
-    "release": "pnpm run pre-publish && nx release && git push --tags",
+    "release": "pnpm run pre-publish && nx release && git puhs && git push --tags",
     "release:dry-run": "pnpm run pre-publish && nx release --dry-run"
   },
   "private": true,
