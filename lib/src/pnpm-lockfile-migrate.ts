@@ -237,6 +237,8 @@ export async function updateRegistryInformation(
 
             if (updated) {
               count += 1;
+            } else {
+              out.join('No changes detected');
             }
           }
         } else {
