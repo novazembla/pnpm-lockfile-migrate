@@ -1,3 +1,14 @@
+## 0.0.4 (2024-03-22)
+
+
+### 🚀 Features
+
+- add publish pnpm scripts and document the publication process ([00d59a7](https://github.com/novazembla/pnpm-lockfile-migrate/commit/00d59a7))
+
+### ❤️  Thank You
+
+- Vincent Van Uffelen
+
 ## 0.0.3 (2024-03-22)
 
 
