@@ -1,40 +1,40 @@
 # pnpm-lockfile-migrate
-Update the tarball urls an/or integrity checksums, that some private enterprise `NPM` registries like Artifactory or Azure Artifact need, in a project's `pnpm-lock.yaml` file. 
+Updates in a project's `pnpm-lock.yaml` file the tarball URLs and/or integrity checksums that some private enterprise NPM registries like Artifactory or Azure Artifacts require.
 
 ## Use Case
-You develop a project with packages from a private npm registry. The registry's information will be stored in the `pnpm-lock.yaml` file and commited to your codebase. But when trying to build the project in a `CI` pipeline with access to all the needed private packages but via a different private registry. Here `pnpm` might fail as `pnpm i` compares the content of the `pnpm-lock.yaml` with the information it retrieves from the registry and tarball URL and/or integrity checksum do not match. 
+You develop a project with packages from a private npm registry. The registry's information is stored in the `pnpm-lock.yaml` file and committed to your codebase. However, when trying to build the project in a CI pipeline with access to all the needed private packages, but via a different private registry, `pnpm` might fail. This is because `pnpm install` compares the content of the `pnpm-lock.yaml` with the information it retrieves from the registry, and discrepancies in the tarball URL and/or integrity checksum can occur.
 
-This script uses [@pnpm/lockfile-file](https://www.npmjs.com/package/@pnpm/lockfile-file) core package of `pnpm` to read the project's `pnpm-lock.yaml`, updates the relevant information, and saves the file again.
+This script uses the [@pnpm/lockfile-file](https://www.npmjs.com/package/@pnpm/lockfile-file) core package of `pnpm` to read the project's `pnpm-lock.yaml`, update the relevant information, and save the file again.
 
-# Usage
+## Usage
 
-## Executable
-The migration of the script will need to be done before you run `pnpm i`. Therefore this plugin provides an executable that can be called before `pnpm i` will be executed. The script logs 
+### Executable
+The migration script should be run before `pnpm install`. Therefore, this plugin provides an executable that can be called prior to executing `pnpm i`. The script logs its actions to the console by default.
 
-This script can be called with the following parameters:
+The script can be called with the following parameters:
 
-1. `-d`, or `--directory` (mandatory) The folder containing your pnpm-lock.yaml file
-2. `-s`, or `--scope` (mandatory) at least one scope 
-3. `--noLog` (optional) if set no information will be logged to the console
-4. `--noBackupFile` (optional) if set the script will not create a backup (saved under `pnpm-lock.bck.yaml`) of the lock file
-5. `--debug` (optional) if set the log information will be augmented with further information . 
+1. `-d` or `--directory` (mandatory): The folder containing your `pnpm-lock.yaml` file.
+2. `-s` or `--scope` (mandatory): At least one scope.
+3. `--noLog` (optional): If set, no information will be logged to the console.
+4. `--noBackupFile` (optional): If set, the script will not create a backup (saved under `pnpm-lock.bck.yaml`) of the lock file.
+5. `--debug` (optional): If set, the log information will include additional details.
 
-```
+```bash
 npx pnpm-lock-migrate -d . -s "@scope" -s "@another-scope"
 ```
 
 This script reads the 
 
-1. Reads the lock file
-2. Identifies all packages (matching the globs) in the lock file
-3. Retrieves the tarball URL and integrity value from the currently configured private registry.
-4. Updates the relevant entries in the lock file
-5. ... and saves the lock file for further processing through `pnpm i`
+1. Reads the lock file. 
+2. Identifies all packages (matching the scopes) in the lock file. 
+3. Retrieves the tarball URL and/or integrity value from the currently configured private registry. 
+4. Updates the relevant entries in the lock file. 
+5. Saves the lock file for further processing through `pnpm i`. 
 
 ## Write your own script.
 You can import the relevant function from the package to roll your own script. 
 
-```
+```javascript
 import {updateRegistryInformation} from "pnpm-lockfile-migrate";
 
 ...
@@ -79,13 +79,13 @@ Run `nx test pnpm-lockfile-migrate` to execute the unit tests via [Vitest](https
 # Publishing 
 First make sure that you configure the correct version in `lib/package.json`. Then test the release by running:
 
-```
+```bash
 pnpm run release:dry-run
 ``` 
 This will check the version, generate a changelog entry based on the conventional commits, tests if the version has not been already tagged. 
 
 If all changes look good you can trigger the release with: 
 
-```
+```bash
 pnpm run release
 ```
