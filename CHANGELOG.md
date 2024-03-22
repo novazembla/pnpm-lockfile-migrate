@@ -1,3 +1,7 @@
+## 0.0.1 (2024-03-22)
+
+This was a version bump only, there were no code changes.
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
