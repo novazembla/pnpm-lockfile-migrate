@@ -1,6 +1,20 @@
 ## 0.0.6 (2024-03-22)
 
-This was a version bump only, there were no code changes.
+### 🚀 Features
+
+- Update Readme and build and repository helper scripts 
+
+### ❤️  Thank You
+
+- Vincent Van Uffelen
+
+## 0.0.5 (2024-03-22)
+
+- Update Readme and build and repository helper scripts 
+
+### ❤️  Thank You
+
+- Vincent Van Uffelen
 
 ## 0.0.4 (2024-03-22)
 
