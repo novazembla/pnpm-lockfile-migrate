@@ -1,0 +1,5 @@
+# Beware: the execution order of npx nx run-many --taget=... is being
+# determined by the order of packages in here
+
+packages:
+  - lib

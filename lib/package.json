@@ -1,0 +1,50 @@
+{
+  "name": "@novazembla/pnpm-lockfile-migrate",
+  "version": "0.0.1",
+  "description": "Update private npm registry tarball urls and integrity checksums in a project's `pnpm-lock.yaml` file.",
+  "license": "MIT",
+  "author": {
+    "name": "Vincent Van Uffelen",
+    "email": "novazembla@users.noreply.github.com",
+    "url": "https://github.com/novazembla"
+  },
+  "type": "module",
+  "module": "./index.js",
+  "main": "./index.cjs",
+  "typings": "./index.d.ts",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./index.js",
+      "require": "./index.cjs"
+    }
+  },
+  "bin": {
+    "pnpm-lockfile-migrate": "./shell.cjs"
+  },
+  "files": [
+    "*.js",
+    "*.cjs",
+    "*.md"
+  ],
+  "engines": {
+    "node": ">=16.0"
+  },
+  "keywords": [
+    "pnpm",
+    "registry",
+    "migration"
+  ],
+  "bugs": {
+    "url": "https://github.com/novazembla/pnpm-lockfile-migrate/issues"
+  },
+  "homepage": "https://github.com/novazembla/pnpm-lockfile-migrate#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/novazembla/pnpm-lockfile-migrate.git"
+  },
+  "dependencies": {
+    "@commander-js/extra-typings": "^12.0.1",
+    "@pnpm/lockfile-file": "^8.1.8"
+  }
+}

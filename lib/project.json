@@ -1,0 +1,59 @@
+{
+  "name": "pnpm-lockfile-migrate",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "lib/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["test", "build-lib"],
+      "options": {
+        "parallel": false,
+        "commands": [
+          {
+            "command": "cp {projectRoot}/package.json {projectRoot}/../dist/lib"
+          },
+          {
+            "command": "cp {projectRoot}/README.md {projectRoot}/../dist/lib"
+          }
+        ]
+      }
+    },
+    "build-lib": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/lib",
+        "main": "lib/src/index.ts",
+        "tsConfig": "lib/tsconfig.lib.json",
+        "assets": [
+          "lib/*.md",
+          "package.json"
+        ]
+      }
+    },
+    "nx-release-publish": {
+      "dependsOn": ["lint", "test", "build-lib"],
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "reportsDirectory": "../coverage/src"
+      }
+    }
+  },
+  "tags": [],
+  "release": {
+    "version": {
+      "conventionalCommits": true,
+      "generatorOptions": {
+        "packageRoot": "dist/{projectRoot}",
+        "currentVersionResolver": "git-tag"
+      }
+    }
+  }
+}
