@@ -1,3 +1,18 @@
+## 0.0.9 (2024-03-22)
+
+
+### 🚀 Features
+
+- remove tarball, type, or integrity fields if present in current lock file but not in new registry's response ([df2534c](https://github.com/novazembla/pnpm-lockfile-migrate/commit/df2534c))
+
+### 🩹 Fixes
+
+- fix typo in pnpm script ([6eff33f](https://github.com/novazembla/pnpm-lockfile-migrate/commit/6eff33f))
+
+### ❤️  Thank You
+
+- Vincent Van Uffelen
+
 ## 0.0.8 (2024-03-22)
 
 
