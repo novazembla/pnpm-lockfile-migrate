@@ -14,7 +14,7 @@
             "command": "cp {projectRoot}/package.json {projectRoot}/../dist/lib"
           },
           {
-            "command": "cp {projectRoot}/README.md {projectRoot}/../dist/lib"
+            "command": "cp {projectRoot}/../README.md {projectRoot}/../dist/lib"
           }
         ]
       }
